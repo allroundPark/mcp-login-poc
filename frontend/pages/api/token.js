@@ -1,5 +1,19 @@
 import axios from 'axios';
 
+// 쿠키 파싱 함수
+function parseCookies(cookieHeader) {
+  const cookies = {};
+  if (cookieHeader) {
+    cookieHeader.split(';').forEach(cookie => {
+      const parts = cookie.split('=');
+      const name = parts[0].trim();
+      const value = parts.slice(1).join('=').trim();
+      cookies[name] = decodeURIComponent(value);
+    });
+  }
+  return cookies;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -16,7 +30,8 @@ export default async function handler(req, res) {
   const redirectUri = process.env.NEXT_PUBLIC_COGNITO_REDIRECT_URI;
 
   // 쿠키에서 code_verifier 가져오기
-  const codeVerifier = req.cookies.code_verifier;
+  const cookies = parseCookies(req.headers.cookie);
+  const codeVerifier = cookies.code_verifier;
 
   if (!codeVerifier) {
     return res.status(400).json({ error: 'Code verifier not found' });
