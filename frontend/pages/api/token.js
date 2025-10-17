@@ -26,6 +26,15 @@ export default async function handler(req, res) {
     // Cognito 토큰 엔드포인트 호출
     const tokenUrl = `https://${cognitoDomain}/oauth2/token`;
     
+    // 디버깅용 로그
+    console.log('Token exchange params:', {
+      cognitoDomain,
+      clientId,
+      redirectUri,
+      codeLength: code?.length,
+      codeVerifierLength: codeVerifier?.length,
+    });
+    
     const params = new URLSearchParams({
       grant_type: 'authorization_code',
       client_id: clientId,
