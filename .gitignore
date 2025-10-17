@@ -32,9 +32,11 @@ yarn-error.log*
 
 # CDK
 cdk.out/
-*.js
-*.d.ts
-!jest.config.js
+cdk/**/*.js
+cdk/**/*.d.ts
+!cdk/**/node_modules/**
+!cdk/lambda/**/*.js
+!cdk/scripts/**/*.js
 
 # IDE
 .idea/
