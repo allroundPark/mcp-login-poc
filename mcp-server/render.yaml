@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: luna-mcp-server
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: COGNITO_DOMAIN
+        value: mcp-poc-252610433235.auth.ap-northeast-2.amazoncognito.com
+      - key: COGNITO_CLIENT_ID
+        value: 4gojdp451p4pc34kk4q11i4lip
+      - key: COGNITO_REDIRECT_URI
+        sync: false
+      - key: API_BASE_URL
+        value: https://3b044wjwkf.execute-api.ap-northeast-2.amazonaws.com
+
